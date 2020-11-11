@@ -17,8 +17,8 @@ exports.create = (req, res) => {
     
      
       const product = {
-        id: ProductId,
-        name: ProductName,
+        Id: ProductId,
+        Name: ProductName,
       };
     
       
