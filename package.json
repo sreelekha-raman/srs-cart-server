@@ -1,0 +1,11 @@
+{
+  "name": "srs-cart-server",
+  "version": "1.0.0",
+  "description": "The backend server of srs",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
