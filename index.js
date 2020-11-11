@@ -3,7 +3,7 @@ const bodyparser=require("body-parser");
 const request =require("request");
 const https=require("https");
 const cors = require("cors");
-const sequelize=require("sequelize");
+//const sequelize=require("sequelize");
 
 const app=express();
 
@@ -18,7 +18,8 @@ app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
-
+const db = require("./app/models/productmodel.js");
+db.sequelize.sync();
 
 
 app.get("/",function(req,res){
