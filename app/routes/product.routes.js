@@ -1,10 +1,10 @@
 module.exports = app => {
-    const products = require("../controllers/product.controller.js");
+    const products = require("../controller/product.controller");
   
     var router = require("express").Router();
   
     // Create a new product
-    router.post("/", products.create);
+    router.post("/new", products.create);
   
     // // Retrieve all products
     // router.get("/", products.findAll);

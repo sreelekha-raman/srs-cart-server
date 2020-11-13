@@ -1,9 +1,9 @@
 module.exports = (sequelize, Sequelize) => {
     const Product = sequelize.define("product", {
-      Id: {
+      product_id: {
         type: Sequelize.STRING
       },
-      Name: {
+      product_name: {
         type: Sequelize.STRING
       }
     });
