@@ -20,7 +20,7 @@ db.sequelize.sync();
 
 
 app.get("/",function(req,res){
-    res.sendFile(__dirname+"/form.html");
+    // res.sendFile(__dirname+"/form.html");
   }); 
 
 // app.post("/products",function(req,res){
