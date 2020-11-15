@@ -13,21 +13,13 @@ app.use(cors(corsOptions));
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({extended: true}));
 
-// app.use(express.static("public"));
-
 const db = require("./app/models");
 db.sequelize.sync();
 
 
 app.get("/",function(req,res){
-    // res.sendFile(__dirname+"/form.html");
+    res.send("Server is running.");
   }); 
-
-// app.post("/products",function(req,res){
-//       const ProductId=req.body.PId;
-//       const ProductName=req.body.Pname;
-//       console.log(ProductId ,ProductName);
-// });
 
 require("./app/routes/product.routes.js")(app);
 

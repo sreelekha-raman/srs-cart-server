@@ -4,12 +4,7 @@ const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
 
-    const ProductId=req.body.PId;
-    const ProductName=req.body.Pname;
-
-    console.log(ProductId ,ProductName);
-
-    if (!ProductId) {
+    if (!req.body.product_code) {
         res.status(400).send({
           message: "Product ID cannot be empty!"
         });
@@ -17,8 +12,8 @@ exports.create = (req, res) => {
       }
      
       const product = {
-        product_id: ProductId,
-        product_name: ProductName,
+        product_code: req.body.product_code,
+        product_name: req.body.product_name,
       };
       
       Product.create(product)
