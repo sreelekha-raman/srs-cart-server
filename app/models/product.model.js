@@ -10,7 +10,7 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.FLOAT
       },
       product_stock: {
-        type: Sequelize.INT
+        type: Sequelize.INTEGER
       }
     });
   

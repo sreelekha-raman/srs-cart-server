@@ -34,8 +34,8 @@ exports.create = (req, res) => {
 
 // Retrieve all products from the database.
 exports.findAll = (req, res) => {
-  const title = req.query.title;
-  var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
+  const product_name = req.query.product_name;
+  var condition = product_name ? { product_name: { [Op.like]: `%${product_name}%` } } : null;
 
   Product.findAll({ where: condition })
     .then(data => {
