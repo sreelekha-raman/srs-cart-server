@@ -1,38 +1,41 @@
 const db = require("../models");
-const Product = db.products;
+const Order = db.orders;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new 
 exports.create = (req, res) => {
 
-    if (!req.body.product_code) {
+    if (!req.body.order_id) {
         res.status(400).send({
           message: "Product ID cannot be empty!"
         });
         return;
       }
      
-      const product = {
-        product_code: req.body.product_code,
-        product_name: req.body.product_name,
-        product_price:req.body.product_price,
-        product_stock:req.body.product_stock,
+      const order = {
+        Order_ID: req.body.Order_ID,
+        Customer_Phone: req.body.Customer_Phone,
+        Order_Timestamp: req.body.Order_Timestamp,
+        Product_Code: req.body.Product_Code,
+        Product_Name: req.body.Product_Name,
+        Quantity: req.body.Quantity,
+        Price: req.body.Price,
       };
       
-      Product.create(product)
+      Order.create(order)
         .then(data => {
           res.send(data);
         })
         .catch(err => {
           res.status(500).send({
             message:
-              err.message || "Some error occurred while creating the product."
+              err.message || "Some error occurred while creating the ORDER."
           });
         });
 };
 
 
-// Retrieve all products from the database.
+// Retrieve all orders from the database.
 exports.findAll = (req, res) => {
   const title = req.query.title;
   var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
@@ -44,76 +47,76 @@ exports.findAll = (req, res) => {
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving tutorials."
+          err.message || "Some error occurred while retrieving ORDER."
       });
     });
 };
 
 
-// Find a single product with an id
+// Find a single order with an id
 exports.findOne = (req, res) => {
-  const id = req.body.product_code;
+  const id = req.body.order_id;
 
-  Product.findByPk(id)
+  Order.findByPk(id)
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
-        message: "Error retrieving Product with id=" + id
+        message: "Error retrieving order with id=" + id
       });
     });
 };
 
 
-// Update a Tutorial by the id in the request
+// Update a order by the id in the request
 exports.update = (req, res) => {
-  const id = req.body.product_code;
+  const id = req.body.order_id;
 
-  Product.update(req.body, {
+ Order.update(req.body, {
     where: { id: id }
   })
     .then(num => {
       if (num == 1) {
         res.send({
-          message: "Product was updated successfully."
+          message: "order was updated successfully."
         });
       } else {
         res.send({
-          message: `Cannot update Product with id=${id}. Maybe Product was not found or req.body is empty!`
+          message: `Cannot update order with id=${id}. Maybe Product was not found or req.body is empty!`
         });
       }
     })
     .catch(err => {
       res.status(500).send({
-        message: "Error updating Product with id=" + id
+        message: "Error updating order with id=" + id
       });
     });
 };
 
 
 
-// Delete a Product with the specified id in the request
+// Delete a order with the specified id in the request
 exports.delete = (req, res) => {
-  const id = req.body.product_code;
+  const id = req.body.order_id;
 
-  Product.destroy({
+  Order.destroy({
     where: { id: id }
   })
     .then(num => {
       if (num == 1) {
         res.send({
-          message: "Product was deleted successfully!"
+          message: "order was deleted successfully!"
         });
       } else {
         res.send({
-          message: `Cannot delete Product with id=${id}. Maybe Product was not found!`
+          message: `Cannot delete order with id=${id}. Maybe Product was not found!`
         });
       }
     })
     .catch(err => {
       res.status(500).send({
-        message: "Could not delete Product with id=" + id
+        message: "Could not delete order with id=" + id
       });
     });
 };

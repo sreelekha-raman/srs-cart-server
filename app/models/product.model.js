@@ -5,6 +5,12 @@ module.exports = (sequelize, Sequelize) => {
       },
       product_name: {
         type: Sequelize.STRING
+      },
+      product_price: {
+        type: Sequelize.FLOAT
+      },
+      product_stock: {
+        type: Sequelize.INT
       }
     });
   
