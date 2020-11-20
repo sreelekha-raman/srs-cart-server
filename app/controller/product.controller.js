@@ -51,27 +51,44 @@ exports.findAll = (req, res) => {
 
 
 // Find a single product with an id
-exports.findOne = (req, res) => {
-  const id = req.body.product_code;
 
-  Product.findByPk(id)
+exports.findOne = (req, res) => {
+  const product_code = req.params.id;
+  var condition = product_code ? { product_code: { [Op.like]: `%${product_code}%` } } : null;
+
+  Product.findAll({ where: condition })
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
-        message: "Error retrieving Product with id=" + id
+        message:
+          err.message || "Some error occurred while retrieving tutorials."
       });
     });
 };
 
+// exports.findOne = (req, res) => {
+//   const id = req.params.id;
+
+//   Product.findByPk(id)
+//     .then(data => {
+//       res.send(data);
+//     })
+//     .catch(err => {
+//       res.status(500).send({
+//         message: "Error retrieving Product with id=" + id
+//       });
+//     });
+// };
+
 
 // Update a Tutorial by the id in the request
 exports.update = (req, res) => {
-  const id = req.body.product_code;
+  const id = req.params.id;
 
   Product.update(req.body, {
-    where: { id: id }
+    where: { product_code: id }
   })
     .then(num => {
       if (num == 1) {
@@ -95,10 +112,10 @@ exports.update = (req, res) => {
 
 // Delete a Product with the specified id in the request
 exports.delete = (req, res) => {
-  const id = req.body.product_code;
+  const id = req.params.id;
 
   Product.destroy({
-    where: { id: id }
+    where: { product_code: id }
   })
     .then(num => {
       if (num == 1) {

@@ -5,7 +5,7 @@ const Op = db.Sequelize.Op;
 //create new  cart
 exports.create = (req, res) => {
 
-    if (!req.body.id) {
+    if (!req.body.Product_ID) {
         res.status(400).send({
           message: "ID cannot be empty!"
         });
@@ -36,10 +36,10 @@ exports.create = (req, res) => {
 
 // Update a cart by the id in the request
 exports.update = (req, res) => {
-    const id = req.body.Product_ID;
+    const id = req.params.id;
   
     Cart.update(req.body, {
-      where: { id: id }
+      where: { Product_ID: id }
     })
       .then(num => {
         if (num == 1) {
@@ -63,10 +63,10 @@ exports.update = (req, res) => {
   
   // Delete a customer with the specified id in the request
   exports.delete = (req, res) => {
-    const id = req.body.Product_ID;
+    const id = req.params.id;
   
     Cart.destroy({
-      where: { id: id }
+      where: { Product_ID: id }
     })
       .then(num => {
         if (num == 1) {
