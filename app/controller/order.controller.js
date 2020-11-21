@@ -5,9 +5,9 @@ const Op = db.Sequelize.Op;
 // Create and Save a new 
 exports.create = (req, res) => {
 
-    if (!req.body.order_id) {
+    if (!req.body.Order_ID) {
         res.status(400).send({
-          message: "Product ID cannot be empty!"
+          message: "Order ID cannot be empty!"
         });
         return;
       }
@@ -19,7 +19,7 @@ exports.create = (req, res) => {
         Product_Code: req.body.Product_Code,
         Product_Name: req.body.Product_Name,
         Quantity: req.body.Quantity,
-        Price: req.body.Price,
+        Pricey: req.body.Pricey,
       };
       
       Order.create(order)
@@ -37,10 +37,10 @@ exports.create = (req, res) => {
 
 // Retrieve all orders from the database.
 exports.findAll = (req, res) => {
-  const title = req.query.title;
-  var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
+  const Product_Name = req.query.Product_Name;
+  var condition = Product_Name ? { Product_Name: { [Op.like]: `%${Product_Name}%` } } : null;
 
-  Product.findAll({ where: condition })
+  Order.findAll({ where: condition })
     .then(data => {
       res.send(data);
     })
@@ -55,26 +55,41 @@ exports.findAll = (req, res) => {
 
 // Find a single order with an id
 exports.findOne = (req, res) => {
-  const id = req.body.order_id;
+  const Order_ID = req.params.id;
+  var condition =  Order_ID ? {  Order_ID: { [Op.like]: `%${Order_ID}%` } } : null;
 
-  Order.findByPk(id)
+  Order.findAll({ where: condition })
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
-        message: "Error retrieving order with id=" + id
+        message:
+          err.message || "Some error occurred while retrieving tutorials."
       });
     });
 };
+// exports.findOne = (req, res) => {
+//   const id = req.body.order_id;
+
+//   Order.findByPk(id)
+//     .then(data => {
+//       res.send(data);
+//     })
+//     .catch(err => {
+//       res.status(500).send({
+//         message: "Error retrieving order with id=" + id
+//       });
+//     });
+// };
 
 
 // Update a order by the id in the request
 exports.update = (req, res) => {
-  const id = req.body.order_id;
+  const id = req.params.id;
 
  Order.update(req.body, {
-    where: { id: id }
+    where: { Order_ID: id }
   })
     .then(num => {
       if (num == 1) {
@@ -98,10 +113,10 @@ exports.update = (req, res) => {
 
 // Delete a order with the specified id in the request
 exports.delete = (req, res) => {
-  const id = req.body.order_id;
+  const id = req.params.id;
 
   Order.destroy({
-    where: { id: id }
+    where: { Order_ID: id }
   })
     .then(num => {
       if (num == 1) {
